@@ -9,16 +9,16 @@
     'use strict';
 
     function autoFillCaptcha() {
-        const label = document.querySelector(
-            'label[for="edit-english-captcha-answer"]'
-        );
+        const label = document.querySelector('label[for="edit-english-captcha-answer"]');
         const input = document.getElementById('edit-english-captcha-answer');
-
         if (!label || !input) return;
 
-        const match = label.innerText.match(/\(([^)]+)\)/);
-        if (match && match[1]) {
-            input.value = match[1].trim();
+        const matches = label.innerText.match(/\(([^)]+)\)/g);
+        if (matches && matches.length) {
+            const answer = matches[matches.length - 1]
+                .replace(/[()]/g, '')
+                .trim();
+            input.value = answer;
             input.style.backgroundColor = "#d4edda";
         }
     }
